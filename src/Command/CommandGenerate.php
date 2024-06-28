@@ -1,13 +1,13 @@
 <?php
-namespace Arch\Crontab\Command;
+namespace Arches\Crontab\Command;
 
 class CommandGenerate
 {
-    private $php = '';
+    private $php;
 
-    private $cron = [];
+    private $cron;
 
-    private $is_win = false;
+    private $is_win;
 
     private $command = '';
 
@@ -71,8 +71,8 @@ class CommandGenerate
     }
 
     /**
+     * @param string $path
      * @param string $log
-     * @param int $type
      * @return $this
      */
     public function addLog(string $path, string $log): CommandGenerate

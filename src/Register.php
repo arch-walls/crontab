@@ -1,13 +1,19 @@
 <?php
-namespace Arch\Crontab;
+namespace Arches\Crontab;
+
+use Arches\Crontab\Service\Service;
 
 class Register
 {
+    /**
+     * @param $service
+     * @return void
+     */
     public function boot($service) {
         $service = boolval($service);
 
         if ($service) {
-            app()->invokeClass(\Arch\Crontab\Service\Service::class)->boot();
+            app()->invokeClass(Service::class)->boot();
         } else {
             $this->bootLtTP6();
         }
@@ -18,6 +24,6 @@ class Register
      * @return void
      */
     private function bootLtTP6() {
-        \think\Console::addDefaultCommands([\Arch\Crontab\Crontab::class]);
+        \think\Console::addDefaultCommands([Crontab::class]);
     }
 }

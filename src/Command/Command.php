@@ -1,5 +1,5 @@
 <?php
-namespace Arch\Crontab\Command;
+namespace Arches\Crontab\Command;
 
 use think\console\Input;
 use think\console\Output;

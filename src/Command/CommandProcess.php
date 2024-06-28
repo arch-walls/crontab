@@ -1,5 +1,5 @@
 <?php
-namespace Arch\Crontab\Command;
+namespace Arches\Crontab\Command;
 
 class CommandProcess
 {
@@ -39,7 +39,7 @@ class CommandProcess
         $result = shell_exec($this->getExecBody());
         return [
             $this->getExecBody(),
-            is_null($result) ? 'success' : (string) $result
+            is_null($result) ? 'success' : $result
         ];
     }
 

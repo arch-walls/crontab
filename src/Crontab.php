@@ -1,11 +1,14 @@
 <?php
-namespace Arch\Crontab;
+namespace Arches\Crontab;
 
-use Arch\Crontab\Command\BaseCommand;
-use Arch\Crontab\Model\CrontabLogModel;
-use Arch\Crontab\Model\CrontabModel;
+use Arches\Crontab\Command\BaseCommand;
+use Arches\Crontab\Model\CrontabLogModel;
+use Arches\Crontab\Model\CrontabModel;
 use Cron\CronExpression;
 use DateTime;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\DbException;
+use think\db\exception\ModelNotFoundException;
 
 class Crontab extends BaseCommand
 {
@@ -27,6 +30,12 @@ class Crontab extends BaseCommand
         return config('app.default_timezone') ?: config('default_timezone') ?: date_default_timezone_get();
     }
 
+    /**
+     * @return void
+     * @throws DataNotFoundException
+     * @throws DbException
+     * @throws ModelNotFoundException
+     */
     public function handle()
     {
         $crontab_list = (new CrontabModel())->getOpens();

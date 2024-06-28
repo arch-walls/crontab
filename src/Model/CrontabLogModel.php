@@ -1,5 +1,5 @@
 <?php
-namespace Arch\Crontab\Model;
+namespace Arches\Crontab\Model;
 
 class CrontabLogModel extends BaseModel
 {

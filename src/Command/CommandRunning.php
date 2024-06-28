@@ -1,5 +1,5 @@
 <?php
-namespace Arch\Crontab\Command;
+namespace Arches\Crontab\Command;
 
 class CommandRunning
 {

@@ -59,9 +59,9 @@ if (!function_exists('register_crontab') && function_exists('request')) {
     {
         if (support_check($version)) {
             if (version_compare($version, '6.0.0') >= 0) {
-                app()->invokeClass(\Arch\Crontab\Register::class)->boot(true);
+                app()->invokeClass(\Arches\Crontab\Register::class)->boot(true);
             } else {
-                \think\App::invokeClass(\Arch\Crontab\Register::class)->boot(false);
+                \think\App::invokeClass(\Arches\Crontab\Register::class)->boot(false);
             }
         }
     }

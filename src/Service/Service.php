@@ -1,7 +1,7 @@
 <?php
-namespace Arch\Crontab\Service;
+namespace Arches\Crontab\Service;
 
-use Arch\Crontab\Crontab;
+use Arches\Crontab\Crontab;
 
 class Service extends \think\Service
 {

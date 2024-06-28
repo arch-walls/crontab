@@ -4,12 +4,13 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Arch\\Crontab\\": "src/"
+            "Arches\\Crontab\\": "src/"
         }
     },
     "require": {
         "dragonmantank/cron-expression": "^3.3",
-        "topthink/framework": "^5.0|^5.1|^6.0|^8.0"
+        "topthink/framework": "^5.0|^5.1|^6.0|^8.0",
+        "ext-json": "*"
     },
     "config": {
         "allow-plugins": {

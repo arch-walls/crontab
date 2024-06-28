@@ -6,9 +6,6 @@ use Arches\Crontab\Model\CrontabLogModel;
 use Arches\Crontab\Model\CrontabModel;
 use Cron\CronExpression;
 use DateTime;
-use think\db\exception\DataNotFoundException;
-use think\db\exception\DbException;
-use think\db\exception\ModelNotFoundException;
 
 class Crontab extends BaseCommand
 {
@@ -20,7 +17,7 @@ class Crontab extends BaseCommand
      * @param $country
      * @return string
      */
-    protected function getTimezone($country): string
+    protected function getTimezone($country)
     {
         if (!empty($country)) {
             $countries = (array) config('app.countries') ?: config('countries') ?: [];
@@ -30,12 +27,6 @@ class Crontab extends BaseCommand
         return config('app.default_timezone') ?: config('default_timezone') ?: date_default_timezone_get();
     }
 
-    /**
-     * @return void
-     * @throws DataNotFoundException
-     * @throws DbException
-     * @throws ModelNotFoundException
-     */
     public function handle()
     {
         $crontab_list = (new CrontabModel())->getOpens();
@@ -65,7 +56,7 @@ class Crontab extends BaseCommand
                 continue;
             }
 
-            [$command_line, $result] = $this->newProcess($command)->exec();
+            @list($command_line, $result) = $this->newProcess($command)->exec();
             $crontab_log[] = [
                 'cron_id' => $crontab['id'],
                 'command' => $crontab['schedule'] . ' ' . $command_line,

@@ -11,6 +11,7 @@
         ]
     },
     "require": {
+        "php": ">=5.6",
         "dragonmantank/cron-expression": "^3.3",
         "topthink/framework": "^5.0|^5.1|^6.0|^8.0",
         "ext-json": "*"

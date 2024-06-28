@@ -1,12 +1,10 @@
 <?php
 
-use Composer\InstalledVersions;
-
 if (!function_exists('is_win')) {
     /**
      * @return bool
      */
-    function is_win(): bool
+    function is_win()
     {
         return strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
     }
@@ -16,7 +14,7 @@ if (!function_exists('is_cli')) {
     /**
      * @return bool
      */
-    function is_cli(): bool
+    function is_cli()
     {
         return (PHP_SAPI == 'cli' || PHP_SAPI == 'phpdbg');
     }
@@ -26,7 +24,7 @@ if (!function_exists('tp_version')) {
     /**
      * @return string
      */
-    function tp_version(): string
+    function tp_version()
     {
         try {
             return ltrim(\Composer\InstalledVersions::getPrettyVersion('topthink/framework'), 'v');
@@ -39,7 +37,7 @@ if (!function_exists('tp_version')) {
 \Arches\Crontab\Register::$version = (is_cli() ? tp_version() : '');
 
 if (!function_exists('root_dir')) {
-    function root_dir(): string
+    function root_dir()
     {
         $version = \Arches\Crontab\Register::$version;
         if (version_compare($version, '6.0.0') >= 0) {
@@ -71,7 +69,7 @@ if (!function_exists('get_path')) {
      * @param string $child_path
      * @return string
      */
-    function get_path($child_path = '', ...$_): string
+    function get_path($child_path = '', ...$_)
     {
         $child_path = join(DIRECTORY_SEPARATOR, func_get_args()) . DIRECTORY_SEPARATOR;
         return root_dir() . $child_path;
@@ -83,7 +81,7 @@ if (!function_exists('support_check')) {
      * @param $version
      * @return bool
      */
-    function support_check($version): bool
+    function support_check($version)
     {
         if (version_compare($version, '8.0.0') >= 0) return true;
 
@@ -115,7 +113,7 @@ if (!function_exists('php_path')) {
     /**
      * @return string
      */
-    function php_path(): string
+    function php_path()
     {
         return config('app.php_path') ?: 'php';
     }

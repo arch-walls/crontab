@@ -13,12 +13,12 @@ class CommandGenerate
 
     private $command_body = '';
 
-    public function __construct(array $cron = [])
+    public function __construct($cron = [])
     {
         $this->php = php_path();
         $this->cron = $cron;
         $this->is_win = is_win();
-        if (!empty($this->cron)) {
+        if (!empty($this->cron) && is_array($this->cron)) {
             $body = [$this->php, get_path('think'), $this->cron['command'], [$this->cron['country_id'], $this->cron['params']]];
             $this->build(...$body)->addLog($this->getLogPath(), $this->cron['log'] ?: $cron['command']);
         }
@@ -27,12 +27,12 @@ class CommandGenerate
     /**
      * @return string
      */
-    protected function getLogPath(): string
+    protected function getLogPath()
     {
         $path = get_path($this->buildPath('runtime','cron', date('Y-m/d')));
         try {
             !is_dir($path) && mkdir($path, 0777, true);
-        } catch (\Throwable $exception) {}
+        } catch (\Exception $exception) {}
 
         return $path;
     }
@@ -42,7 +42,7 @@ class CommandGenerate
      * @param string ...$_
      * @return string
      */
-    protected function buildPath($path, string ...$_): string
+    protected function buildPath($path, ...$_)
     {
         if (!is_array($path)) {
             $path = func_get_args();
@@ -58,7 +58,7 @@ class CommandGenerate
      * @param $params
      * @return $this
      */
-    public function build(string $php, string $think, string $command, $params): CommandGenerate
+    public function build($php, $think, $command, $params)
     {
         if (!is_array($params)) $params = [$params];
 
@@ -75,7 +75,7 @@ class CommandGenerate
      * @param string $log
      * @return $this
      */
-    public function addLog(string $path, string $log): CommandGenerate
+    public function addLog($path, $log)
     {
         if (!empty($log)) {
             $log = $path . str_replace(' ', '_', $log);
@@ -94,7 +94,7 @@ class CommandGenerate
     /**
      * @return CommandGenerate
      */
-    public function addBackExec(): CommandGenerate
+    public function addBackExec()
     {
         if ($this->is_win) {
             $this->command = 'start /B ' . $this->command;
@@ -108,7 +108,7 @@ class CommandGenerate
     /**
      * @return string
      */
-    public function getBody(): string
+    public function getBody()
     {
         return $this->command_body;
     }
@@ -116,7 +116,7 @@ class CommandGenerate
     /**
      * @return string
      */
-    public function getExecCommand(): string
+    public function getExecCommand()
     {
         return $this->command;
     }

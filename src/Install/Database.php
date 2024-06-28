@@ -22,7 +22,7 @@ class Database
     private function createCrontabTable() {
         if ($this->tableExists('crontab')) return true;
 
-        $sql = <<<SQL
+        $sql = "
             CREATE TABLE IF NOT EXISTS `crontab` (
               `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
               `country_id` mediumint(5) unsigned NOT NULL DEFAULT '0',
@@ -40,14 +40,14 @@ class Database
               KEY `idx_status` (`status`) USING BTREE,
               KEY `idx_names` (`names`) USING BTREE
             ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
-        SQL;
+        ";
         return $this->query($sql);
     }
 
     private function createCrontabLogTable() {
         if ($this->tableExists('crontab_log')) return true;
 
-        $sql = <<<SQL
+        $sql = "
             CREATE TABLE IF NOT EXISTS `crontab_log` (
               `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
               `cron_id` int(11) unsigned NOT NULL DEFAULT '0',
@@ -58,7 +58,7 @@ class Database
               PRIMARY KEY (`id`) USING BTREE,
               KEY `idx_cron` (`cron_id`) USING BTREE
             ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
-        SQL;
+        ";
         return $this->query($sql);
     }
 
@@ -77,7 +77,7 @@ class Database
 
         try {
             return $db::query($sql);
-        } catch (\Throwable $exception) {
+        } catch (\Exception $exception) {
             return false;
         }
     }

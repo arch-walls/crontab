@@ -8,7 +8,7 @@ class CommandRunning
     private $running = [];
     private $is_win;
 
-    public function __construct(CommandGenerate $command = null)
+    public function __construct($command = null)
     {
         $this->is_win = is_win();
         if (null !== $command) $this->command = $command;
@@ -27,7 +27,7 @@ class CommandRunning
      * @param CommandGenerate $command
      * @return $this
      */
-    public function check(CommandGenerate $command): CommandRunning
+    public function check($command): CommandRunning
     {
         $this->command = $command;
         $this->running = $this->listen();
@@ -99,13 +99,15 @@ class CommandRunning
      */
     public function taskNo(): string
     {
-        return $this->running[$this->total() - 1]['pid'] ?? '';
+        if (!isset($this->running[$this->total() - 1]['pid'])) return '';
+
+        return $this->running[$this->total() - 1]['pid'];
     }
 
     /**
      * @return int
      */
-    public function total(): int
+    public function total()
     {
         return count($this->running);
     }
@@ -113,7 +115,7 @@ class CommandRunning
     /**
      * @return array
      */
-    public function list(): array
+    public function list()
     {
         return $this->running;
     }
@@ -122,7 +124,7 @@ class CommandRunning
      * @param int $max_process
      * @return bool
      */
-    public function isOutRun(int $max_process): bool
+    public function isOutRun(int $max_process)
     {
         return $this->total() >= $max_process;
     }

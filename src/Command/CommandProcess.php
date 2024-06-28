@@ -6,7 +6,7 @@ class CommandProcess
     /** @var CommandGenerate  */
     private $command;
 
-    public function __construct(CommandGenerate $command)
+    public function __construct($command)
     {
         $this->command = $command;
     }
@@ -14,7 +14,7 @@ class CommandProcess
     /**
      * @return string
      */
-    private function getExecBody(): string
+    private function getExecBody()
     {
         return $this->command->addBackExec()->getExecCommand();
     }

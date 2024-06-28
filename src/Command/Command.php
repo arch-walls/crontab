@@ -12,7 +12,7 @@ class Command extends BaseCommand
     {
         if (!empty($this->options)) {
             foreach ($this->options as $name => $option) {
-                $this->addOption($name, $option['short'] ?? '', $option['mode'] ?? 0, $option['desc'] ?? '', $option['default'] ?? '');
+                $this->addOption($name, isset($option['short']) ? $option['short'] : '', isset($option['mode']) ? $option['mode'] : 0, isset($option['desc']) ? $option['desc'] : '', isset($option['default']) ? $option['default'] : '');
             }
         }
     }

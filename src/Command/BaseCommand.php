@@ -26,7 +26,7 @@ class BaseCommand extends \think\console\Command
         $this->setName($this->name)->setDescription($this->desc);
         if (!empty($this->params)) {
             foreach ($this->params as $name => $param) {
-                $this->addArgument($name, $param['mode'], $param['desc'] ?? '', $param['default'] ?? null);
+                $this->addArgument($name, $param['mode'], isset($param['desc']) ? $param['desc'] : '', isset($param['default']) ? $param['default'] : null);
             }
         }
 
@@ -46,7 +46,7 @@ class BaseCommand extends \think\console\Command
 
     public function handle() {}
 
-    public function run(Input $input, Output $output): int
+    public function run(Input $input, Output $output)
     {
         $this->process_id = $this->createId();
         $this->command = $this->getTaskCommand();
@@ -59,7 +59,7 @@ class BaseCommand extends \think\console\Command
     /**
      * @return string
      */
-    protected function createId(): string
+    protected function createId()
     {
         return md5(microtime(true) . $this->task_no . $this->name . rand(1, 1000));
     }
@@ -69,7 +69,7 @@ class BaseCommand extends \think\console\Command
      * @param ...$message
      * @return void
      */
-    public function output(...$message): void
+    public function output(...$message)
     {
         if (count($message) === 1) $message = $message[0];
 
@@ -80,15 +80,15 @@ class BaseCommand extends \think\console\Command
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, $message);
 
         try {
-            $this->output->writeln($msg);
-        } catch (\Throwable $exception) {}
+            return $this->output->writeln($msg);
+        } catch (\Exception $exception) {}
     }
 
     /**
      * @param ...$message
      * @return void
      */
-    public function exception(...$message): void
+    public function exception(...$message)
     {
         if (count($message) === 1) $message = $message[0];
 
@@ -99,26 +99,26 @@ class BaseCommand extends \think\console\Command
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, 'exception', $message);
 
         try {
-            $this->output->writeln($msg);
-        } catch (\Throwable $exception) {}
+            return $this->output->writeln($msg);
+        } catch (\Exception $exception) {}
     }
 
     /**
      * @return CommandGenerate
      */
-    protected function getTaskCommand(): CommandGenerate
+    protected function getTaskCommand()
     {
         $generate = $this->newCommand();
         array_shift($_SERVER['argv']);
-        $generate->build('', '', array_shift($_SERVER['argv']) ?: '', $_SERVER['argv'] ?: []);
-        return $generate;
+        $command = array_shift($_SERVER['argv']);
+        return $generate->build('', '', strval($command), $_SERVER['argv']);
     }
 
     /**
      * @param array $cron
      * @return CommandGenerate
      */
-    protected function newCommand(array $cron = []): CommandGenerate
+    protected function newCommand(array $cron = [])
     {
         return new CommandGenerate($cron);
     }
@@ -127,7 +127,7 @@ class BaseCommand extends \think\console\Command
      * @param CommandGenerate $command
      * @return CommandRunning
      */
-    protected function newRunning(CommandGenerate $command): CommandRunning
+    protected function newRunning(CommandGenerate $command)
     {
         return new CommandRunning($command);
     }
@@ -136,7 +136,7 @@ class BaseCommand extends \think\console\Command
      * @param CommandGenerate $command
      * @return CommandProcess
      */
-    protected function newProcess(CommandGenerate $command): CommandProcess
+    protected function newProcess(CommandGenerate $command)
     {
         return new CommandProcess($command);
     }

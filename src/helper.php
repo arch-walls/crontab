@@ -1,5 +1,5 @@
 <?php
-if (function_exists('is_win')) {
+if (!function_exists('is_win')) {
     /**
      * @return bool
      */
@@ -44,7 +44,7 @@ if (!function_exists('support_check')) {
     }
 }
 
-if (function_exists('is_cli')) {
+if (!function_exists('is_cli')) {
     /**
      * @return bool
      */

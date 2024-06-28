@@ -4,7 +4,7 @@ namespace Arches\Crontab\Command;
 use think\console\Input;
 use think\console\Output;
 
-class BaseCommand extends Command
+class BaseCommand extends \think\console\Command
 {
     protected $name = '';
 

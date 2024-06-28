@@ -64,11 +64,6 @@ class BaseCommand extends \think\console\Command
         return md5(microtime(true) . $this->task_no . $this->name . rand(1, 1000));
     }
 
-
-    /**
-     * @param ...$message
-     * @return void
-     */
     public function output(...$message)
     {
         if (count($message) === 1) $message = $message[0];
@@ -80,14 +75,12 @@ class BaseCommand extends \think\console\Command
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, $message);
 
         try {
-            return $this->output->writeln($msg);
+            $this->output->writeln($msg);
         } catch (\Exception $exception) {}
+
+        return $msg;
     }
 
-    /**
-     * @param ...$message
-     * @return void
-     */
     public function exception(...$message)
     {
         if (count($message) === 1) $message = $message[0];
@@ -99,8 +92,10 @@ class BaseCommand extends \think\console\Command
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, 'exception', $message);
 
         try {
-            return $this->output->writeln($msg);
+            $this->output->writeln($msg);
         } catch (\Exception $exception) {}
+
+        return $msg;
     }
 
     /**

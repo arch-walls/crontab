@@ -4,7 +4,7 @@ namespace Arches\Crontab\Command;
 use think\console\Input;
 use think\console\Output;
 
-class Command extends \think\console\Command
+class Command extends BaseCommand
 {
     protected $options = [];
 

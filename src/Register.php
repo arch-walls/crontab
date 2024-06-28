@@ -1,29 +1,23 @@
 <?php
 namespace Arches\Crontab;
 
-use Arches\Crontab\Service\Service;
+use Arches\Crontab\Install\Database;
+use think\App;
 
 class Register
 {
-    /**
-     * @param $service
-     * @return void
-     */
-    public function boot($service) {
-        $service = boolval($service);
+    public static $version;
 
-        if ($service) {
-            app()->invokeClass(Service::class)->boot();
-        } else {
-            $this->bootLtTP6();
-        }
+    public static function invokeClass() {
+        require_once get_path('thinkphp') . 'base.php';
+        App::initCommon();
+
+        Database::install();
+        \think\Console::addDefaultCommands([Crontab::class]);
     }
 
-    /**
-     * Version number less than TP6.0.0
-     * @return void
-     */
-    private function bootLtTP6() {
+    public static function invokeClass51() {
+        Database::install();
         \think\Console::addDefaultCommands([Crontab::class]);
     }
 }

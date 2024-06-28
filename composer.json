@@ -1,0 +1,13 @@
+{
+    "name": "arch/crontab",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Arch\\Crontab\\": "src/"
+        }
+    },
+    "require": {
+        "dragonmantank/cron-expression": "^3.3"
+    }
+}

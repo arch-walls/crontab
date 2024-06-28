@@ -7,7 +7,7 @@ class Register
         $service = boolval($service);
 
         if ($service) {
-            app()->bootService(\Arch\Crontab\Service\Service::class);
+            app()->invokeClass(\Arch\Crontab\Service\Service::class)->boot();
         } else {
             $this->bootLtTP6();
         }

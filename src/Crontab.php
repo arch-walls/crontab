@@ -5,6 +5,7 @@ use Arch\Crontab\Command\BaseCommand;
 use Arch\Crontab\Model\CrontabLogModel;
 use Arch\Crontab\Model\CrontabModel;
 use Cron\CronExpression;
+use DateTime;
 
 class Crontab extends BaseCommand
 {
@@ -13,10 +14,16 @@ class Crontab extends BaseCommand
     protected $desc = '';
 
     /**
+     * @param $country
      * @return string
      */
-    protected function getTimezone(): string
+    protected function getTimezone($country): string
     {
+        if (!empty($country)) {
+            $countries = (array) config('app.countries') ?: config('countries') ?: [];
+
+            if (isset($countries[$country]['timezone'])) return strval($countries[$country]['timezone']);
+        }
         return config('app.default_timezone') ?: config('default_timezone') ?: date_default_timezone_get();
     }
 
@@ -36,7 +43,7 @@ class Crontab extends BaseCommand
                 continue;
             }
 
-            if (!$cron->setExpression($crontab['schedule'])->isDue(new \DateTime(), $this->getTimezone($crontab['country_id']))) {
+            if (!$cron->setExpression($crontab['schedule'])->isDue(new DateTime(), $this->getTimezone($crontab['country_id']))) {
                 $this->output('crontab[' . $crontab['id'] . '] not due');
                 continue;
             }

@@ -5,10 +5,7 @@
     "autoload": {
         "psr-4": {
             "Arches\\Crontab\\": "src/"
-        },
-        "files": [
-            "src/helper.php"
-        ]
+        }
     },
     "require": {
         "dragonmantank/cron-expression": "^3.3",

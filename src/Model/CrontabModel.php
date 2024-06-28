@@ -11,7 +11,7 @@ class CrontabModel extends BaseModel
     const STATUS_CLOSE = 2;
 
     public function getOpens() {
-        $crontabList = $this->where('status', self::STATUS_OPEN)->select();
+        $crontabList = $this->table()->where('status', self::STATUS_OPEN)->select();
         return is_array($crontabList) ? $crontabList :
             (method_exists($crontabList, 'toArray') ? $crontabList->toArray() : ((array) $crontabList));
     }

@@ -28,4 +28,8 @@ class BaseModel
 
         return (self::$db)::table($table);
     }
+
+    public function insertAll($data) {
+        return $this->table()->insertAll($data);
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Arches\Crontab\Service;
+namespace Arches\Crontab;
 
 use Arches\Crontab\Crontab;
 use Arches\Crontab\Install\Database;

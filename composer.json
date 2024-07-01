@@ -16,14 +16,9 @@
         "topthink/framework": "^5.0|^5.1|^6.0|^8.0",
         "ext-json": "*"
     },
-    "config": {
-        "allow-plugins": {
-            "topthink/think-installer": true
-        }
-    },
     "extra": {
         "think": {
-            "services": ["Arches\\Crontab\\Service\\Service"]
+            "services": ["Arches\\Crontab\\Service"]
         }
     }
 }

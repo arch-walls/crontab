@@ -6,7 +6,7 @@ use think\console\Output;
 
 class BaseCommand extends \think\console\Command
 {
-    protected $name = '';
+    protected $name = 'arches-base-crontab';
 
     protected $desc = '';
 

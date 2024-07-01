@@ -46,7 +46,7 @@ class BaseCommand extends \think\console\Command
 
     public function handle() {}
 
-    public function run(Input $input, Output $output)
+    public function run(Input $input, Output $output): int
     {
         $this->process_id = $this->createId();
         $this->command = $this->getTaskCommand();

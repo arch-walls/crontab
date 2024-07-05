@@ -68,7 +68,7 @@ class Database
               `create_time` int(11) unsigned NOT NULL DEFAULT '0',
               PRIMARY KEY (`id`) USING BTREE,
               KEY `idx_cron` (`cron_id`) USING BTREE
-            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务日志表';
         ";
         return $this->query($sql);
     }

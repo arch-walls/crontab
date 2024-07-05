@@ -1,4 +1,5 @@
 <?php
+namespace Arches\Crontab;
 
 if (!function_exists('is_win')) {
     /**

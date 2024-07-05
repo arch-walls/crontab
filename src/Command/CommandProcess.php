@@ -1,6 +1,8 @@
 <?php
 namespace Arches\Crontab\Command;
 
+use function Arches\Crontab\is_win;
+
 class CommandProcess
 {
     /** @var CommandGenerate  */

@@ -1,7 +1,6 @@
 <?php
 namespace Arches\Crontab;
 
-use Arches\Crontab\Crontab;
 use Arches\Crontab\Install\Database;
 
 class Service extends \think\Service

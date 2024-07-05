@@ -1,6 +1,10 @@
 <?php
 namespace Arches\Crontab\Command;
 
+use function Arches\Crontab\get_path;
+use function Arches\Crontab\is_win;
+use function Arches\Crontab\php_path;
+
 class CommandGenerate
 {
     private $php;

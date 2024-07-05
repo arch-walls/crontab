@@ -17,6 +17,8 @@ class CommandGenerate
 
     private $command_body = '';
 
+    private $back_exec = '';
+
     public function __construct($cron = [])
     {
         $this->php = php_path();
@@ -101,10 +103,12 @@ class CommandGenerate
     public function addBackExec()
     {
         if ($this->is_win) {
-            $this->command = 'start /B ' . $this->command;
+            $this->back_exec = 'start /B';
         } else {
-            $this->command = 'nohup ' . $this->command;
+            $this->back_exec = 'nohup';
         }
+
+        $this->command = $this->back_exec . ' ' . $this->command;
 
         return $this;
     }

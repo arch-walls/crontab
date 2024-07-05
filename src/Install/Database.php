@@ -16,12 +16,19 @@ class Database
         return new self;
     }
 
+    private function getLockFile() {
+        $file = __DIR__ . '/install.lock';
+        if (!file_exists($file)) file_put_contents($file, 0);
+
+        return $file;
+    }
+
     private function hasInstall() {
-        return intval(file_get_contents(__DIR__ . '/install.lock')) > 0;
+        return intval(file_get_contents($this->getLockFile())) > 0;
     }
 
     private function installSuccess() {
-        file_put_contents(__DIR__ . '/install.lock', 1);
+        file_put_contents($this->getLockFile(), 1);
     }
 
     private function doInstall() {

@@ -44,20 +44,20 @@ class Database
             CREATE TABLE IF NOT EXISTS `crontab` (
               `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
               `country_id` mediumint(5) unsigned NOT NULL DEFAULT '0',
-              `names` varchar(255) NOT NULL DEFAULT '' COMMENT '任务名称',
+              `names` varchar(255) NOT NULL DEFAULT '' COMMENT '',
               `schedule` varchar(255) NOT NULL DEFAULT '* * * * *',
               `command` varchar(255) NOT NULL DEFAULT '',
               `params` varchar(255) NOT NULL DEFAULT '',
               `log` varchar(255) NOT NULL DEFAULT '',
-              `max_process` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '最大允许进程数',
-              `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态：1=启用 2=禁用',
-              `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+              `max_process` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '',
+              `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1=enable 2=disable',
+              `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '',
               `create_time` int(11) unsigned NOT NULL DEFAULT '0',
               `update_time` int(11) unsigned NOT NULL DEFAULT '0',
               PRIMARY KEY (`id`) USING BTREE,
               KEY `idx_status` (`status`) USING BTREE,
               KEY `idx_names` (`names`) USING BTREE
-            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='crontab list';
         ";
         return $this->query($sql);
     }
@@ -75,7 +75,7 @@ class Database
               `create_time` int(11) unsigned NOT NULL DEFAULT '0',
               PRIMARY KEY (`id`) USING BTREE,
               KEY `idx_cron` (`cron_id`) USING BTREE
-            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务日志表';
+            ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='crontab log';
         ";
         return $this->query($sql);
     }

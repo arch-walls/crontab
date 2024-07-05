@@ -7,16 +7,27 @@ class Database
 {
     private function __construct()
     {
-        $this->doInstall();
+        if (!$this->hasInstall()) {
+            $this->doInstall();
+        }
     }
 
     public static function install() {
         return new self;
     }
 
+    private function hasInstall() {
+        return intval(file_get_contents(__DIR__ . '/install.lock')) > 0;
+    }
+
+    private function installSuccess() {
+        file_put_contents(__DIR__ . '/install.lock', 1);
+    }
+
     private function doInstall() {
         $this->createCrontabTable();
         $this->createCrontabLogTable();
+        $this->installSuccess();
     }
 
     private function createCrontabTable() {

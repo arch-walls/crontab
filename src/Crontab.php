@@ -35,9 +35,11 @@ class Crontab extends BaseCommand
             return;
         }
 
+        $progress = $this->newProgress(count($crontab_list));
         $cron = new CronExpression('* * * * *');
         $crontab_log = [];
         foreach ($crontab_list as $crontab) {
+            $progress->progress();
             if (!$cron::isValidExpression($crontab['schedule'])) {
                 $this->output('crontab[' . $crontab['id'] . '] schedule error');
                 continue;

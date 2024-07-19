@@ -135,4 +135,12 @@ class BaseCommand extends \think\console\Command
     {
         return new CommandProcess($command);
     }
+
+    /**
+     * @param int $total
+     * @return CommandProgress
+     */
+    protected function newProgress(int $total) {
+        return new CommandProgress($total);
+    }
 }

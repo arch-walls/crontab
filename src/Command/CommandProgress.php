@@ -51,7 +51,9 @@ class CommandProgress
         if ($this->options['prefix'] === false) return '';
 
         if (empty($this->options['prefix'])) {
-            $this->options['prefix'] = sprintf('%d/%d', $current, $this->total);
+            $this->prefix = sprintf('%d/%d', $current, $this->total);
+        } else {
+            $this->prefix = $this->options['prefix'];
         }
 
         return $this->options['prefix'];

@@ -21,6 +21,9 @@ class BaseCommand extends \think\console\Command
     /** @var CommandRunning */
     protected $running;
 
+    /** @var CommandProgress */
+    protected $progress;
+
     protected function configure()
     {
         $this->setName($this->name)->setDescription($this->desc);
@@ -73,6 +76,7 @@ class BaseCommand extends \think\console\Command
         $tmpl = '%s - %s || %s[%s] --> %s';
 
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, $message);
+        if ($this->progress instanceof CommandProgress) $msg = PHP_EOL . $msg;
 
         try {
             $this->output->writeln($msg);
@@ -90,6 +94,7 @@ class BaseCommand extends \think\console\Command
         $tmpl = '%s - %s || %s[%s] => %s --> %s';
 
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, 'exception', $message);
+        if ($this->progress instanceof CommandProgress) $msg = PHP_EOL . $msg;
 
         try {
             $this->output->writeln($msg);

@@ -35,8 +35,10 @@ class CommandProgress
         $barLength = intval($this->options['length'] * $percent / 100);
         $bar = str_repeat($this->options['fill'], $barLength) . str_repeat('-', $this->options['length'] - $barLength);
 
-        printf("\r%s [%s] %d%% %s" . PHP_EOL, $this->getPrefix(), $bar, $percent, $this->options['suffix']);
-
+        printf("\r%s [%s] %d%% %s", $this->getPrefix(), $bar, $percent, $this->options['suffix']);
+        if ($this->current == $this->total) {
+            echo PHP_EOL;
+        }
         flush();
     }
 

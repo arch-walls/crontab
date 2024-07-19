@@ -4,22 +4,33 @@ namespace Arches\Crontab\Command;
 
 class CommandProgress
 {
+    /** @var array  */
     private $options = [
         'length' => 50,
         'fill' => '▓',
         'prefix' => '',
-        'suffix' => ''
+        'suffix' => '',
+        'run_time' => 0
     ];
 
+    /** @var int  */
     private $total = 0;
 
+    /** @var int  */
     private $current = 0;
 
+    /** @var string  */
     private $prefix = '';
+
+    /** @var float  */
+    private $begin_time = 0;
+
+    private $times = 0;
 
     public function __construct(int $total, array $options = [])
     {
         $this->total = $total;
+        $this->begin_time = floatval($options['run_time'] ?? 0) ?: microtime(true);
         $this->options = array_merge($this->options, $options);
     }
 
@@ -28,6 +39,7 @@ class CommandProgress
      * @return void
      */
     public function progress(int $current = 0) {
+        $this->times++;
         if ($current < 1) {
             $this->current++;
         } else {
@@ -37,7 +49,7 @@ class CommandProgress
         $barLength = intval($this->options['length'] * $percent / 100);
         $bar = str_repeat($this->options['fill'], $barLength) . str_repeat('-', $this->options['length'] - $barLength);
 
-        printf("\r%s [%s] %d%% %s", $this->getPrefix(), $bar, $percent, $this->options['suffix']);
+        printf("\r%s [%s] %d%% %s s:%s", $this->getPrefix(), $bar, $percent, $this->options['suffix'], $this->getConsuming());
         if ($this->current == $this->total) {
             echo PHP_EOL;
         }
@@ -59,6 +71,13 @@ class CommandProgress
         }
 
         return $this->prefix;
+    }
+
+    /**
+     * @return float
+     */
+    public function getConsuming() {
+        return microtime(true) - $this->begin_time;
     }
 
     /**

@@ -24,6 +24,9 @@ class BaseCommand extends \think\console\Command
     /** @var CommandProgress */
     protected $progress;
 
+    /** @var float|int  */
+    protected $run_time = 0;
+
     protected function configure()
     {
         $this->setName($this->name)->setDescription($this->desc);
@@ -52,6 +55,7 @@ class BaseCommand extends \think\console\Command
     public function run(Input $input, Output $output): int
     {
         $this->process_id = $this->createId();
+        $this->run_time = microtime(true);
         $this->command = $this->getTaskCommand();
         $this->running = $this->newRunning($this->command);
         $this->task_no = $this->running->taskNo();
@@ -147,6 +151,7 @@ class BaseCommand extends \think\console\Command
      * @return CommandProgress
      */
     protected function newProgress(int $total, array $options = []) {
+        $options['run_time'] = floatval($options['run_time'] ?? $this->run_time);
         return new CommandProgress($total, $options);
     }
 }

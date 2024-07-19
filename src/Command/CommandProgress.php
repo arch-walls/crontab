@@ -15,6 +15,8 @@ class CommandProgress
 
     private $current = 0;
 
+    private $prefix = '';
+
     public function __construct(int $total, array $options = [])
     {
         $this->total = $total;
@@ -56,7 +58,7 @@ class CommandProgress
             $this->prefix = $this->options['prefix'];
         }
 
-        return $this->options['prefix'];
+        return $this->prefix;
     }
 
     /**

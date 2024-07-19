@@ -25,7 +25,7 @@ class CommandGenerate
         $this->cron = $cron;
         $this->is_win = is_win();
         if (!empty($this->cron) && is_array($this->cron)) {
-            $body = [$this->php, get_path('think'), $this->cron['command'], [$this->cron['country_id'], $this->cron['params']]];
+            $body = [$this->php, rtrim(get_path('think'), DIRECTORY_SEPARATOR), $this->cron['command'], [$this->cron['country_id'], $this->cron['params']]];
             $this->build(...$body)->addLog($this->getLogPath(), $this->cron['log'] ?: $cron['command']);
         }
     }

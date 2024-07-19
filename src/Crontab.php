@@ -50,7 +50,7 @@ class Crontab extends BaseCommand
                 continue;
             }
 
-            $command = $this->newCommand($crontab);
+            $command = $this->newCommand($crontab)->addBackExec();
             $running = $this->newRunning($command);
             if ($running->isOutRun(is_win() ? 1 : $crontab['max_process'])) {
                 $this->output('crontab[' . $crontab['id'] . '] is out run-process');

@@ -18,7 +18,7 @@ class CommandProcess
      */
     private function getExecBody()
     {
-        return $this->command->addBackExec()->getExecCommand();
+        return $this->command->getExecCommand();
     }
 
     /**

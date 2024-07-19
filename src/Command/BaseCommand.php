@@ -76,7 +76,7 @@ class BaseCommand extends \think\console\Command
         $tmpl = '%s - %s || %s[%s] --> %s';
 
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, $message);
-        if ($this->progress instanceof CommandProgress) $msg = PHP_EOL . $msg;
+        if ($this->progress instanceof CommandProgress && !$this->progress->hasOver()) $msg = PHP_EOL . $msg;
 
         try {
             $this->output->writeln($msg);
@@ -94,7 +94,7 @@ class BaseCommand extends \think\console\Command
         $tmpl = '%s - %s || %s[%s] => %s --> %s';
 
         $msg = sprintf($tmpl, $this->task_no, $this->process_id, $this->name, static::class, 'exception', $message);
-        if ($this->progress instanceof CommandProgress) $msg = PHP_EOL . $msg;
+        if ($this->progress instanceof CommandProgress && !$this->progress->hasOver()) $msg = PHP_EOL . $msg;
 
         try {
             $this->output->writeln($msg);
@@ -143,9 +143,10 @@ class BaseCommand extends \think\console\Command
 
     /**
      * @param int $total
+     * @param array $options
      * @return CommandProgress
      */
-    protected function newProgress(int $total) {
-        return new CommandProgress($total);
+    protected function newProgress(int $total, array $options = []) {
+        return new CommandProgress($total, $options);
     }
 }

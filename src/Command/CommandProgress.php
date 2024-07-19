@@ -56,4 +56,11 @@ class CommandProgress
 
         return $this->options['prefix'];
     }
+
+    /**
+     * @return bool
+     */
+    public function hasOver() {
+        return $this->current >= $this->total;
+    }
 }

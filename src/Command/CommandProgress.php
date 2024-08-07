@@ -7,7 +7,8 @@ class CommandProgress
     /** @var array  */
     private $options = [
         'length' => 50,
-        'fill' => '▓',
+        //'fill' => '▓',
+        'fill' => '#',
         'prefix' => '',
         'suffix' => '',
         'run_time' => 0
@@ -25,12 +26,14 @@ class CommandProgress
     /** @var float  */
     private $begin_time = 0;
 
+    private $prev_cost_time = 0;
+
     private $times = 0;
 
     public function __construct(int $total, array $options = [])
     {
         $this->total = $total;
-        $this->begin_time = floatval($options['run_time'] ?? 0) ?: microtime(true);
+        $this->begin_time = $this->prev_cost_time = floatval($options['run_time'] ?? 0) ?: microtime(true);
         $this->options = array_merge($this->options, $options);
     }
 
@@ -49,7 +52,7 @@ class CommandProgress
         $barLength = intval($this->options['length'] * $percent / 100);
         $bar = str_repeat($this->options['fill'], $barLength) . str_repeat('-', $this->options['length'] - $barLength);
 
-        printf("\r%s [%s] %d%% %s s:%s", $this->getPrefix(), $bar, $percent, $this->options['suffix'], $this->getConsuming());
+        printf("\r%s [%s] %d%% %s time[micro]:%s", $this->getPrefix(), $bar, $percent, $this->options['suffix'], $this->getConsuming());
         if ($this->current == $this->total) {
             echo PHP_EOL;
         }
@@ -77,7 +80,10 @@ class CommandProgress
      * @return float
      */
     public function getConsuming() {
-        return microtime(true) - $this->begin_time;
+        $cost = microtime(true) - $this->prev_cost_time;
+        $this->prev_cost_time = microtime(true);
+
+        return $cost;
     }
 
     /**

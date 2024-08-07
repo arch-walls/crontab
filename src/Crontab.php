@@ -35,7 +35,7 @@ class Crontab extends BaseCommand
             return;
         }
 
-        $progress = $this->newProgress(count($crontab_list));
+        $progress = $this->progress = $this->newProgress(count($crontab_list));
         $cron = new CronExpression('* * * * *');
         $crontab_log = [];
         foreach ($crontab_list as $crontab) {

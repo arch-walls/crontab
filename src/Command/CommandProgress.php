@@ -52,7 +52,7 @@ class CommandProgress
         $barLength = intval($this->options['length'] * $percent / 100);
         $bar = str_repeat($this->options['fill'], $barLength) . str_repeat('-', $this->options['length'] - $barLength);
 
-        printf("\r%s [%s] %d%% %s time[micro]:%s", $this->getPrefix(), $bar, $percent, $this->options['suffix'], $this->getConsuming());
+        printf("\r%s [%s] [%d/%d]%d%% %s time[micro]:%s", $this->getPrefix(), $bar, $this->current, $this->total, $percent, $this->options['suffix'], $this->getConsuming());
         if ($this->current == $this->total) {
             echo PHP_EOL;
         }
@@ -63,13 +63,10 @@ class CommandProgress
      * @param int $current
      * @return string
      */
-    public function getPrefix(int $current = 0) {
-        $current = $current ?: $this->current;
+    public function getPrefix() {
         if ($this->options['prefix'] === false) return '';
 
-        if (empty($this->options['prefix'])) {
-            $this->prefix = sprintf('%d/%d', $current, $this->total);
-        } else {
+        if (!empty($this->options['prefix'])) {
             $this->prefix = $this->options['prefix'];
         }
 
